@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 User.destroy_all
 Location.destroy_all
-Hike.destroy_all
+Venue.destroy_all
 
 
 user1 = User.create(username: "rjcito", password: "12345")
