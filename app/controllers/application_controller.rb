@@ -1,8 +1,15 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
-
   before_action :authorize
+  
+  def logged_in?
+    !!session[:user_id]
+  end
+
+  def current_user
+    current_user = User.find_by_id(session[:user_id]) if logged_in?
+  end
 
   private
 
