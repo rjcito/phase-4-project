@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    skip_before_action :authorize, only: :create
     #POST /signup
     def create
         user = User.create(user_params)
@@ -21,6 +22,7 @@ class UsersController < ApplicationController
 
 
     private
+
     def user_params
         params.permit(:username, :password)
     end
