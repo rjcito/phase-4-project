@@ -32,9 +32,13 @@ class VenuesController < ApplicationController
 
 
     def detroy
-        venue = Venue.find_by(id: pramas[:id])
+        if logged_in?
+        venue = Venue.find_by(id: params[:id])
         venue.destroy
         head :no_content
+        else
+            render json: {error: ["You must be logged in."]}
+        end
     end
 
     private
