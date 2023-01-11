@@ -26,7 +26,7 @@ const Login = ({onLogin}) => {
                 <>
                     <SignupForm onLogin={onLogin}/>
                     <p> 
-                        Already a registered user?;
+                        Already a registered user?
                         <button onClick={() => setShowLogin(true)}>
                         Log In
                         </button>
