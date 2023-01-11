@@ -17,18 +17,19 @@ const NavBar = ({user, setUser}) => {
 
 
     return ( 
-        <>
-            
-        <Link to="/">Greatest Venues in America</Link>
-            
-        
-        <nav>
-            <button to="/new">
-                New Venue
-            </button>
-        </nav>
+        <div>
+            <Link to="/">Greatest Venues in America</Link>
+            <nav>
+                <button to="/new">
+                    New Venue
+                </button>
+                <button onClick={handleLogoutClick}>
+                    Logout
+                </button>
+            </nav>
+        </div>
 
-        </>
+        
      );
 }
  

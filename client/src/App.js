@@ -27,17 +27,19 @@ function App() {
 
   return (
     <>
-      <NavBar user={user} setUser={setUser}/>
-      <main>
-        <Routes>
-          <Route path="/new">
-            <NewVenue user={user}/>
-          </Route>
-          <Route path="/">
-            <VenueList />
-          </Route>
-        </Routes>
-      </main>
+    <NavBar user={user} setUser={setUser}/>
+      <div>
+        <main>
+          <Routes>
+            <Route path="/new">
+              <NewVenue user={user}/>
+            </Route>
+            <Route path="/">
+              <VenueList />
+            </Route>
+          </Routes>
+        </main>
+      </div>
     </>
     
   );
