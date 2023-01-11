@@ -1,5 +1,10 @@
 class VenuesController < ApplicationController
-    before_action :find_venue, only: [:update, :delete]
+    before_action :find_venue, only: [:update, :destroy]
+
+    def index
+        venues = Venue.all
+        render json: venues
+    end
 
     #POST /venues
     def create
@@ -31,11 +36,15 @@ class VenuesController < ApplicationController
     end
 
 
-    def detroy
+    def destroy
         if logged_in?
-        venue = Venue.find_by(id: params[:id])
-        venue.destroy
-        head :no_content
+            venue = Venue.find_by(id: params[:id])
+            if venue
+                venue.destroy
+                head :no_content
+            else
+                render json: {error: "Venue not found"}, status: :not_found
+            end
         else
             render json: {error: ["You must be logged in."]}
         end
