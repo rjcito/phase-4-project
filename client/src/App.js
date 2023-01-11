@@ -1,31 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import NavBar from "./NavBar";
+import Login from "./Login";
+import NewVenue from "./NewVenue"
+import VenueList from "./VenueList"
+
 
 function App() {
   const [user, setUser] = useState(null)
 
 
-  useEffect(() =>{
+  useEffect(() => {
 
-  });
+    fetch("/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
 
 
+  }, []);
 
+  if (!user) return <Login onLogin={setUser}/>;
 
 
 
   return (
-    <div>
-      <header>
-        
-        <h1>
-          Roberto's Phase 4 Project
-        </h1>
-        <h2>
-          Project # 4
-        </h2>
-      </header>
-    </div>
+    <>
+      <NavBar user={user} setUser={setUser}/>
+      <main>
+        <Routes>
+          <Route path="/new">
+            <NewVenue user={user}/>
+          </Route>
+          <Route path="/">
+            <VenueList />
+          </Route>
+        </Routes>
+      </main>
+    </>
+    
   );
 }
 
