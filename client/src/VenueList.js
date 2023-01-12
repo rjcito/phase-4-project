@@ -1,5 +1,45 @@
+import {useEffect, useState} from "react";
+import { Link } from "react-router-dom";
+
 const VenueList = () => {
-    return ( <h1>VenueList here</h1> );
+    const [venues, setVenues] = useState([]);
+
+    useEffect(() => {
+        fetch("/venues")
+            .then((r) => r.json())
+            .then(setVenues);
+    }, []);
+
+
+
+    return ( 
+        <div>
+            { venues.length > 0 ? (
+                venues.map((venue)=> (
+                <><h1>{venue.name}</h1><h2>
+                        <em>Review: {venue.review}</em>
+
+                        <cite>By {venue.user.username}</cite>
+                    </h2></>
+
+
+
+                ))
+            ): (
+                <>
+                    <h2>No Venues Found</h2>
+                    <button as={Link} to='/new'>
+                        Make a New Venue
+                    </button>
+                </>
+            
+            )}
+        </div>
+
+    );
 }
+
+
+
  
 export default VenueList;
