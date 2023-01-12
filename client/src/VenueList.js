@@ -6,9 +6,17 @@ const VenueList = () => {
 
     useEffect(() => {
         fetch("/venues")
-            .then((r) => r.json())
-            .then(setVenues);
-    }, []);
+          .then(res => {
+            return res.json();
+          })
+          .then(venues => {
+            
+            setVenues(venues);
+            
+            
+            
+        })
+    }, [])
 
 
 
@@ -29,7 +37,7 @@ const VenueList = () => {
                 <>
                     <h2>No Venues Found</h2>
                     <button as={Link} to='/new'>
-                        Make a New Venue
+                        Create a New Venue
                     </button>
                 </>
             

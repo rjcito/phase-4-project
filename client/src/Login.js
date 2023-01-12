@@ -5,7 +5,7 @@ import SignupForm from "./SignupForm";
 
 
 
-const Login = ({onLogin}) => {
+const Login = ({ onLogin }) => {
     const [showLogin, setShowLogin] = useState(true);
 
 
