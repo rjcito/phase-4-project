@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-const SignupForm = () => {
+const SignupForm = ({onLogin}) => {
     const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -47,13 +47,13 @@ const SignupForm = () => {
         </input>
 
         <label>
-            Password:
-        </label>
+            Password:{"\n"}
+        </label>{"\n"}
         <input type="text" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}>
-        </input>
+        </input>{"\n"}
 
         <label>
-            Password:
+            Password Confirmation:
         </label>
         <input type="text" id="password_confirmation" autoComplete="current-password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}>
         </input>

@@ -1,34 +1,41 @@
-import {useEffect, useState} from "react";
-import { Link } from "react-router-dom";
+// import {useEffect, useState} from "react";
+import { NavLink } from "react-router-dom";
 
-const VenueList = () => {
-    const [venues, setVenues] = useState([]);
 
-    useEffect(() => {
-        fetch("/venues")
-          .then(res => {
-            return res.json();
-          })
-          .then(venues => {
+const VenueList = ({ venues }) => {
+    // const [venues, setVenues] = useState([]);
+
+    // useEffect(() => {
+    //     fetch("/venues")
+    //       .then(res => {
+    //         return res.json();
+    //       })
+    //       .then(venues => {
             
-            setVenues(venues);
+    //         setVenues(venues);
             
             
             
-        })
-    }, [])
+    //     })
+    // }, [])
 
 
 
     return ( 
         <div>
+            
             { venues.length > 0 ? (
                 venues.map((venue)=> (
-                <><h1>{venue.name}</h1><h2>
+                <> <h1>{venue.name}</h1>
+                    <h2>
                         <em>Review: {venue.review}</em>
+                        <NavLink  to={`/venues/${venue.id}/edit`}>Edit Venue</NavLink >
+                        <button>Delete Venue</button>
 
-                        <cite>By {venue.user.username}</cite>
-                    </h2></>
+
+                        
+                    </h2>
+                </>
 
 
 
@@ -36,9 +43,10 @@ const VenueList = () => {
             ): (
                 <>
                     <h2>No Venues Found</h2>
-                    <button as={Link} to='/new'>
+                    <NavLink  to='/new'>
                         Create a New Venue
-                    </button>
+                    </NavLink>
+                    
                 </>
             
             )}

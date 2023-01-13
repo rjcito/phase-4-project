@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import NewVenue from "./NewVenue"
 import VenueList from "./VenueList"
+import EditVenue from "./EditVenue"
 
 
 function App() {
   const [user, setUser] = useState(null)
+  const [venues, setVenues] = useState([])
 
 
   useEffect(() => {
@@ -21,26 +23,57 @@ function App() {
 
   }, []);
 
+  
+
+
+  useEffect(() => {
+    fetch("/venues")
+      .then(res => {
+        return res.json();
+      })
+      .then(venues => {
+        
+        setVenues(venues);
+        
+        
+        
+    })
+}, [])
+
+function handleUpdateVenue(updatedVenue) {
+  const updatedVenues = venues.map((venue) => {
+    if (venue.id === updatedVenue.id){
+      return updatedVenue;
+    }else {
+      return venue
+    }
+  })
+  setVenues(updatedVenues)
+}
+
   if (!user) return <Login onLogin={setUser}/>;
 
 
 
+
   return (
-    <>
-    <NavBar user={user} setUser={setUser}/>
+    
+    
+    <Router>
+      <NavBar user={user} setUser={setUser}/>
       <div>
         <main>
           <Routes>
-            <Route path="/new">
-              <NewVenue user={user}/>
-            </Route>
-            <Route path="/">
-              <VenueList />
-            </Route>
+            <Route path="/venues/new" element={<NewVenue user={user}/>}/>
+            <Route path="/" element={<VenueList venues = {venues}/>}/>
+            <Route path="venues/:id/edit" element={<EditVenue venues={venues} onEditVenue={handleUpdateVenue}/>}/>
+              {/* <VenueList /> */}
+            
           </Routes>
         </main>
       </div>
-    </>
+    </Router>
+    
     
   );
   

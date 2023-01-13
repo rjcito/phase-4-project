@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 
 
@@ -18,11 +18,12 @@ const NavBar = ({user, setUser}) => {
 
     return ( 
         <div>
-            <Link to="/">Greatest Venues in America</Link>
+            <h1>Concert Venues in America</h1>
             <nav>
-                <button to="/new">
+                <NavLink to= "/">Home</NavLink>
+                <NavLink to="/venues/new">
                     New Venue
-                </button>
+                </NavLink>
                 <button onClick={handleLogoutClick}>
                     Logout
                 </button>
