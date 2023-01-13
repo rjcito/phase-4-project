@@ -1,9 +1,10 @@
 import React, {useState} from "react"
 
 
-const NewVenue = () => {
+const NewVenue = ({onAddVenue}) => {
     const [name, setName] = useState("")
     const [review, setReview] = useState("")
+    const [errors, setErrors]= useState([])
 
     const handleSubmit = (e) => {
         e.preventDefailt();
@@ -17,6 +18,7 @@ const NewVenue = () => {
                 review: review,
             }),
         })
+        
         .then((r) => r.json())
         .then((newVenue) => onAddVenue=(newVenue))
     }
@@ -26,8 +28,21 @@ const NewVenue = () => {
 
 
     return ( 
-        <h1>New Venue Form Here</h1>
-     );
+        <div>
+            <h1>Create A New Venue</h1>
+            <form onSubmit={handleSubmit}>
+                <label>Venue Name</label>
+                <input type="text" onChange={(e) => setName(e.target.value)}></input>
+                <label>Review</label>
+                <input type="text" onChange={(e) => setReview(e.target.value)}></input>
+                <button type ="submit">Submit</button>
+                {errors.map((error) => (
+                <ul key={error}>{error}</ul>
+            ))}                
+
+            </form>
+        </div>
+    );
 }
  
 export default NewVenue;

@@ -40,6 +40,11 @@ function App() {
     })
 }, [])
 
+function handleAddVenue(newVenue){
+  setVenues([...venues, newVenue])
+
+}
+
 function handleUpdateVenue(updatedVenue) {
   const updatedVenues = venues.map((venue) => {
     if (venue.id === updatedVenue.id){
@@ -64,7 +69,7 @@ function handleUpdateVenue(updatedVenue) {
       <div>
         <main>
           <Routes>
-            <Route path="/venues/new" element={<NewVenue user={user}/>}/>
+            <Route path="/venues/new" element={<NewVenue user={user} onAddVenue={handleAddVenue}/>}/>
             <Route path="/" element={<VenueList venues = {venues}/>}/>
             <Route path="venues/:id/edit" element={<EditVenue venues={venues} onEditVenue={handleUpdateVenue}/>}/>
               {/* <VenueList /> */}
