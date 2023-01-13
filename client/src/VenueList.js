@@ -1,55 +1,39 @@
 // import {useEffect, useState} from "react";
 import { NavLink } from "react-router-dom";
+import VenueCard from "./VenueCard"
 
 
-const VenueList = ({ venues }) => {
-    // const [venues, setVenues] = useState([]);
-
-    // useEffect(() => {
-    //     fetch("/venues")
-    //       .then(res => {
-    //         return res.json();
-    //       })
-    //       .then(venues => {
-            
-    //         setVenues(venues);
-            
-            
-            
-    //     })
-    // }, [])
+const VenueList = ({ venues, onDeleteVenue }) => {
 
 
 
     return ( 
         <div>
+            <h1>Displaying Venues</h1>
+            <ul>
             
-            { venues.length > 0 ? (
-                venues.map((venue)=> (
-                <> <h1>{venue.name}</h1>
-                    <h2>
-                        <em>Review: {venue.review}</em>
-                        <NavLink  to={`/venues/${venue.id}/edit`}>Edit Venue</NavLink >
-                        <button>Delete Venue</button>
+                {venues.map((venue)=> (
+                    <VenueCard
+                        key={venue.id}
+                        venue={venue}
+                        
+                        onDeleteVenue={onDeleteVenue}
+                    
+                        
+                    />
 
 
                         
-                    </h2>
-                </>
-
-
-
-                ))
-            ): (
-                <>
-                    <h2>No Venues Found</h2>
-                    <NavLink  to='/new'>
-                        Create a New Venue
-                    </NavLink>
                     
-                </>
+                
+
+
+
+                
+
             
-            )}
+            ))}
+            </ul>
         </div>
 
     );

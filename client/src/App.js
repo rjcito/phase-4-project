@@ -5,10 +5,11 @@ import Login from "./Login";
 import NewVenue from "./NewVenue"
 import VenueList from "./VenueList"
 import EditVenue from "./EditVenue"
+import VenueCard from "./VenueCard"
 
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({venues:[]})
   const [venues, setVenues] = useState([])
 
 
@@ -26,19 +27,21 @@ function App() {
   
 
 
-  useEffect(() => {
-    fetch("/venues")
-      .then(res => {
-        return res.json();
-      })
-      .then(venues => {
+//   useEffect(() => {
+//     fetch("/venues")
+//       .then(res => {
+//         return res.json();
+//       })
+//       .then(venues => {
         
-        setVenues(venues);
+//         setVenues(venues);
         
         
         
-    })
-}, [])
+//     })
+// }, [])
+
+
 
 function handleAddVenue(newVenue){
   setVenues([...venues, newVenue])
@@ -56,7 +59,12 @@ function handleUpdateVenue(updatedVenue) {
   setVenues(updatedVenues)
 }
 
-  if (!user) return <Login onLogin={setUser}/>;
+function handleDeleteVenue(id){
+  const updatedVenues = venues.filter((venue) => venue.id !==id);
+  setVenues(updatedVenues)
+}
+
+  if (!user.id) return <Login onLogin={setUser}/>;
 
 
 
@@ -65,12 +73,13 @@ function handleUpdateVenue(updatedVenue) {
     
     
     <Router>
-      <NavBar user={user} setUser={setUser}/>
+      <NavBar user={user} setVenues={setVenues} setUser={setUser}/>
       <div>
         <main>
           <Routes>
+            <Route path="/venues/:id" element = {<VenueCard user={user}/>}></Route>
             <Route path="/venues/new" element={<NewVenue user={user} onAddVenue={handleAddVenue}/>}/>
-            <Route path="/" element={<VenueList venues = {venues}/>}/>
+            <Route path="/" element={<VenueList venues = {user.venues} onDeleteVenue={handleDeleteVenue}/>}/>
             <Route path="venues/:id/edit" element={<EditVenue venues={venues} onEditVenue={handleUpdateVenue}/>}/>
               {/* <VenueList /> */}
             

@@ -4,12 +4,14 @@ import { NavLink } from "react-router-dom"
 
 
 
-const NavBar = ({user, setUser}) => {
+const NavBar = ({user, setUser, setVenues}) => {
 
     function handleLogoutClick() {
         fetch("/logout", {method: "DELETE"}).then((r) => {
             if(r.ok){
-                setUser(null);
+                console.log("r is ok")
+                setUser({venues:[]});
+                setVenues([])
             }
         });
     }
