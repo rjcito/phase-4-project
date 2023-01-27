@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :venues, only: [:create, :update, :destroy, :index]
-  resources :locations, only: [:create]
+  resources :locations, only: [:create, :index, :show, :destroy]
   post "signup", to: "users#create"
   get "/me", to: "users#show"
   post "/login", to: "sessions#create"

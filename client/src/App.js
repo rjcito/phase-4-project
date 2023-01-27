@@ -6,11 +6,23 @@ import NewVenue from "./NewVenue"
 import VenueList from "./VenueList"
 import EditVenue from "./EditVenue"
 import VenueCard from "./VenueCard"
+// import LocationCard from "./LocationCard";
+import LocationForm from "./LocationForm";
+import LocationList from "./LocationList";
 
 
 function App() {
   const [user, setUser] = useState({venues:[]})
-  const [venues, setVenues] = useState([])
+  const [venues, setVenues] = useState()
+  //const [locations, setLocations] =useState([])
+  
+  console.log(user)
+
+  //iterating through venues to get the locations associated with the user 
+  // const locations = user.venues.map((venue) => venue.location_city)
+  // console.log(locations)
+  
+
 
 
   useEffect(() => {
@@ -22,31 +34,26 @@ function App() {
     });
 
 
+
+
   }, []);
 
-  
 
 
-//   useEffect(() => {
-//     fetch("/venues")
-//       .then(res => {
-//         return res.json();
-//       })
-//       .then(venues => {
-        
-//         setVenues(venues);
-        
-        
-        
-//     })
-// }, [])
+
 
 
 
 function handleAddVenue(newVenue){
-  setVenues([...venues, newVenue])
+  setVenues([...user.venues, newVenue])
 
 }
+
+
+// function handleAddLocation(location){
+  
+  
+// }
 
 function handleUpdateVenue(updatedVenue) {
   const updatedVenues = venues.map((venue) => {
@@ -69,6 +76,8 @@ function handleDeleteVenue(id){
 
 
 
+
+
   return (
     
     
@@ -77,12 +86,12 @@ function handleDeleteVenue(id){
       <div>
         <main>
           <Routes>
+            <Route path="locations/new" element={<LocationForm />}></Route><Route/>
+            <Route path="/locations" element={<LocationList />}></Route>
             <Route path="/venues/:id" element = {<VenueCard user={user}/>}></Route>
-            <Route path="/venues/new" element={<NewVenue user={user} onAddVenue={handleAddVenue}/>}/>
+            <Route path="/venues/new" element={<NewVenue user={user} onAddVenue={handleAddVenue} />}/>
             <Route path="/" element={<VenueList venues = {user.venues} onDeleteVenue={handleDeleteVenue}/>}/>
-            <Route path="venues/:id/edit" element={<EditVenue venues={venues} onEditVenue={handleUpdateVenue}/>}/>
-              {/* <VenueList /> */}
-            
+            <Route path="venues/:id/edit" element={<EditVenue venues={user.venues} onEditVenue={handleUpdateVenue}/>}/>
           </Routes>
         </main>
       </div>

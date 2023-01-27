@@ -26,6 +26,12 @@ const NavBar = ({user, setUser, setVenues}) => {
                 <NavLink to="/venues/new">
                     New Venue
                 </NavLink>
+                <NavLink to="/locations/new">
+                    Create new Location
+                </NavLink>
+                {/* <NavLink to="/locations">
+                    View Locations You've Been To
+                </NavLink> */}
                 <button onClick={handleLogoutClick}>
                     Logout
                 </button>

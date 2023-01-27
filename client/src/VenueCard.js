@@ -3,7 +3,7 @@ import EditVenue from './EditVenue';
 import { NavLink } from "react-router-dom";
 
 const VenueCard = ({ venue, onDeleteVenue, onEditVenue, user }) => {
-    console.log(venue)
+    // console.log(venue)
     const [isEditing, setIsEditing] = ("false")
 
     function handleDeleteClick() {
@@ -22,6 +22,7 @@ const VenueCard = ({ venue, onDeleteVenue, onEditVenue, user }) => {
                     <h1>Venue Name: {venue.name}</h1>
                     <h2>Review: {venue.review}</h2>
                     <h3>City:{venue.location_city}</h3>
+                    <h3>Created by: {venue.user_name}</h3>
                     <button onClick={handleDeleteClick}>Delete Venue</button>
                     <NavLink to ={`/venues/${venue.id}/edit`}>Edit Venue</NavLink>
                     

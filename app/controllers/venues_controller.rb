@@ -2,18 +2,18 @@ class VenuesController < ApplicationController
     before_action :find_venue, only: [:update, :destroy]
 
     def index
-        venues = Venue.all
+        venues = current_user.venues
         render json: venues
     end
 
     #POST /venues
     def create
         if logged_in?
-            venue = current_user.venues.build(venue_params)
+            venue = current_user.venues.new(venue_params)
             if venue.save
                 render json: venue, status: 201
             else
-            render json: { errors: venue.errors.full_messages }, status: 422
+                render json: { errors: venue.errors.full_messages }, status: :unprocessable_entity
             end
         else
             render json: { errors: ["You must be logged in."] }
@@ -22,8 +22,9 @@ class VenuesController < ApplicationController
 
     #PATCH /venues/:id
     def update
-        if logged_in?
-            venue = Venue.find(params[:id])
+        venue = Venue.find(params[:id])
+        if venue.user_id == current_user.id
+            
             venue.update(venue_params)
             if venue.save
                 render json: venue, status: 201
@@ -31,7 +32,7 @@ class VenuesController < ApplicationController
                 render json: {errors: venue.errors.full_messages }, status:422
             end
         else
-            render json: {error: ["You must be logged in."]}
+            render json: {error: ["You are not the creator of that venue!"]}
         end
     end
 
@@ -53,7 +54,7 @@ class VenuesController < ApplicationController
     private
 
     def venue_params
-        params.permit(:name, :review, :location_id)
+        params.require(:venue).permit(:name, :review, :location_id)
     end
     
     def find_venue
