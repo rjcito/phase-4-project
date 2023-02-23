@@ -10,13 +10,23 @@ const Login = ({ onLogin }) => {
 
 
     return ( 
-        <div>
-            <h1>GREATEST VENUES</h1>
+        <div style = {{backgroundImage: `url(https://media.tenor.com/GSlN2WbMxNIAAAAi/hands-up-%E3%83%95%E3%82%B8%E3%83%AD%E3%83%83%E3%82%AF.gif)`, 
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundColor: "gold",
+        color: "black",
+        fontFamily: 'cursive'
+
+        
+        
+        
+        }}>
+            <h1 style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '70vh' }}>The Greatest Concert Venues</h1>
             {showLogin ? (
                 <>
-                    <LoginForm onLogin={onLogin} />
-                    <p>
-                        <button onClick={() => setShowLogin(false)}>
+                    <LoginForm  onLogin={onLogin} />
+                    <p style={{display: 'flex', justifyContent:'center', alignItems: 'center'}}>
+                        <button  onClick={() => setShowLogin(false)}>
                         Sign Up
                         </button>
                     </p>

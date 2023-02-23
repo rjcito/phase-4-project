@@ -1,25 +1,22 @@
 import React, { useState } from "react"
 
 
-const NewVenue = ({  onAddVenue, user }) => {
+const NewVenue = ({  onAddVenue, user, locations }) => {
     const [name, setName] = useState("")
     const [review, setReview] = useState("")
-    const [location_id, setLocationId] = useState("")
+    //const [location_id, setLocationId] = useState("")
     const [selectedLocation, setSelectedLocation]=  useState("")
     const [errors, setErrors]= useState([])
-    //console.log(location_id)
    
-    //console.log(selectedLocation)
-    //plan: add const [user, setUser] = useState({venues:[]})
-    //then below for onChange do setUser()
 
     const handleSubmit = (e) => {
         e.preventDefault();
         fetch('/venues', {
             method: "POST",
-            headers: {
+            headers: { 
                 "Content-Type": "application/json",
             },
+            
             body: JSON.stringify({
                 name: name,
                 review: review,
@@ -28,18 +25,24 @@ const NewVenue = ({  onAddVenue, user }) => {
             }),
         })
         
-        .then((r) => r.json())
-        .then((newVenue) => onAddVenue(newVenue))
+        .then((r) =>  {
+            if (r.ok){ 
+                r.json().then((newVenue) => onAddVenue(newVenue))
+            } else {
+                r.json().then((err) => setErrors(err.errors))
+            }
+        }
+        )
     }
+   
 
-    // const dropDownList = locations.map((location) => console.log(location))
 
 
 
 
     return ( 
-        <div>
-            <h1>Create A New Venue, remember, you can only create a venue for cities you've been to. If you'd like to add more, click "create new location"</h1>
+        <div style = {{backgroundColor: "gold", fontFamily: "cursive"}}>
+            <h1>Create A New Venue</h1>
             <form onSubmit={handleSubmit}>
                 <label>Venue Name</label>
                 <input type="text" onChange={(e) => setName(e.target.value)}></input>
@@ -54,9 +57,9 @@ const NewVenue = ({  onAddVenue, user }) => {
 
                 <label>Select City</label>
                 <select id="city" onChange = {e => setSelectedLocation(e.target.value)}>
-                    {user.venues.map((venue) => (
-                        <option key={venue.id} value={venue.location_id}>
-                            {venue.location_city}
+                    {locations.map((location) => (
+                        <option key={location.id} value={location.id}>
+                            {location.city}
                         </option>
                     ))}
                     

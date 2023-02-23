@@ -19,23 +19,30 @@ const NavBar = ({user, setUser, setVenues}) => {
 
 
     return ( 
-        <div>
-            <h1>Concert Venues in America</h1>
-            <nav>
-                <NavLink to= "/">Home</NavLink>
-                <NavLink to="/venues/new">
-                    New Venue
-                </NavLink>
-                <NavLink to="/locations/new">
-                    Create new Location
-                </NavLink>
+        <div data-role="navbar" style= {{ backgroundColor: "gold",
+        fontFamily: 'cursive'}}>
+            <h1 >The Greatest Concert Venues</h1>
+            {/* </div><nav style = {{backgroundColor: "gold", fontFamily: "cursive"}}> */}
+                <ul>
+                    <li><NavLink to= "/">Home </NavLink></li>
+                    <li><NavLink to="/venues/new">
+                        New Venue
+                    </NavLink></li>
+                    <li><NavLink to="/locations/new">
+                        Create new Location
+                    </NavLink></li>
+                    <li><NavLink to="/locations">
+                        View Your Locations
+
+                    </NavLink></li>
+                </ul>
                 {/* <NavLink to="/locations">
                     View Locations You've Been To
                 </NavLink> */}
                 <button onClick={handleLogoutClick}>
                     Logout
                 </button>
-            </nav>
+            {/* </nav> */}
         </div>
 
         

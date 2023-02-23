@@ -4,6 +4,7 @@ const LocationForm = () => {
     const [city, setCity] = useState("")
     const [state, setState]= useState("")
     const [locations, setLocations]= useState("")
+    const [errors, setErrors]= useState([])
 
 
     const handleSubmit = (e) => {
@@ -21,12 +22,19 @@ const LocationForm = () => {
             
             
 
+        }).then((r)=> {
+            if (r.ok){
+                r.json().then((newLocation)=> handleAddLocation(newLocation))
+            } else {
+                r.json().then((err) => setErrors(err.errors));
+            }
         })
-        .then((r)=> r.json())
-        .then((newLocation)=> handleAddLocation(newLocation))
-
-    
     }
+
+
+
+
+    //console.log(errors)
 
     function handleAddLocation(newLocation) {
         setLocations([...locations, newLocation])
@@ -38,7 +46,7 @@ const LocationForm = () => {
 
 
     return ( 
-        <form onSubmit = {handleSubmit}>
+        <form onSubmit = {handleSubmit} style={{backgroundColor: "gold", fontFamily: 'cursive'}}>
             <label>
                 City:
             </label>
@@ -52,11 +60,20 @@ const LocationForm = () => {
             <input type="text" id="state" autoComplete="off" value={state} onChange={(e) => setState(e.target.value)}>
 
             </input>
+            {errors.length > 0 && (
+    <ul style={{ color: "red" }}>
+      {errors.map((error) => (
+        <li key={error}>{error}</li>
+      ))}
+    </ul>
+  )}
+
             <button type ="submit">Submit</button>
 
 
         </form>
      );
+
 }
  
 export default LocationForm;

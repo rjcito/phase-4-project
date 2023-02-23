@@ -3,7 +3,7 @@ class LocationsController < ApplicationController
 
 
     def index
-        locations = current_user.locations 
+        locations = Location.all 
         render json: locations
     end 
 
@@ -13,7 +13,7 @@ class LocationsController < ApplicationController
     end
 
     def create 
-        location = Location.new(location_params)
+        location = Location.create(location_params)
         if location.save
             render json: location, status: 201
         else 

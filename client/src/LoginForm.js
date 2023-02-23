@@ -34,17 +34,17 @@ const LoginForm = ({onLogin }) => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form style={{display: 'flex', justifyContent:'center', alignItems: 'center', }} onSubmit={handleSubmit}>
             <label>
-                Username: 
+                Username:  
             </label>
             <input type="text" id="username" autoComplete="off" value={username} onChange={(e) => setUsername(e.target.value)}>
             </input>
 
             <label>
-                Password:
+                Password: 
             </label>
-            <input type="text" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}>
+            <input type="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}>
             </input>
 
             <button type="submit">

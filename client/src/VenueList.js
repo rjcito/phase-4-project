@@ -7,8 +7,9 @@ const VenueList = ({ venues, onDeleteVenue }) => {
 
 
 
+
     return ( 
-        <div>
+        <div style= {{ backgroundColor: "gold", fontFamily: 'cursive'}}>
             <h1>Displaying Venues</h1>
             <ul>
             

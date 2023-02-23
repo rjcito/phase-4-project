@@ -1,10 +1,38 @@
 import React from "react";
 
 
-const LocationList = (
+const LocationList = ({user}) => {
 
-) => {
-    return ( <h1>Location list here</h1> );
+
+console.log(user.locations)
+
+    return ( 
+        <h1>Display User's Locations Here</h1>
+        // <div>
+        // {user.locations.map((location) => 
+        //     <li key={location.id}>{location}</li>)}
+        // </div>
+        
+        
+        
+        
+            
+
+            
+        
+    )
 }
- 
+    
+
+
+
+
+
+
+    
+    
+    
+
+     
+
 export default LocationList;

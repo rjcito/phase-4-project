@@ -3,7 +3,7 @@ class VenuesController < ApplicationController
 
     def index
         venues = current_user.venues
-        render json: venues
+        render json: venues #calling the render method with the json option will produce a JSON-formatted string of data which the controller can then use as the body of the response being sent back to the client. If we pass an aActive Record Object (in this case, our venues variable) this render method, it will be serialized as JSON data based on the attributes of the object. 
     end
 
     #POST /venues
@@ -49,6 +49,17 @@ class VenuesController < ApplicationController
         else
             render json: {error: ["You must be logged in."]}
         end
+    end
+
+    def index
+        byebug
+        Venue.all.find_by(name: params[:searchterm])
+        #render json here, use where?
+    end
+
+    def topusers
+        byebug
+        topUsers = User.where(User.venues > 3) 
     end
 
     private

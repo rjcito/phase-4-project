@@ -49,13 +49,13 @@ const SignupForm = ({onLogin}) => {
         <label>
             Password:{"\n"}
         </label>{"\n"}
-        <input type="text" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}>
+        <input type="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}>
         </input>{"\n"}
 
         <label>
             Password Confirmation:
         </label>
-        <input type="text" id="password_confirmation" autoComplete="current-password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}>
+        <input type="password" id="password_confirmation" autoComplete="current-password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}>
         </input>
 
         <button type="submit">
