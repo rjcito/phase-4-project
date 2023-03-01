@@ -57,10 +57,7 @@ class VenuesController < ApplicationController
         #render json here, use where?
     end
 
-    def topusers
-        byebug
-        topUsers = User.where(User.venues > 3) 
-    end
+
 
     private
 

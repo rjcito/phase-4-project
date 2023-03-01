@@ -15,11 +15,22 @@ class UsersController < ApplicationController
 
     def show
         user = User.find_by(id: session[:user_id])
+        
         if user
             render json: user
         else
             render json: {error: "Not authorized"}, status: :unauthorized
         end
+    end
+
+    def top
+        users = User.all.filter do |user|
+            
+            user.id
+            
+            render json: users, include: :venues
+        end
+        
     end
 
 
@@ -30,4 +41,5 @@ class UsersController < ApplicationController
     def user_params
         params.permit(:username, :password)
     end
+
 end

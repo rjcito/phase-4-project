@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   patch "/venues/:id", to: "venues#update"
 
-  get "/topusers", to: "venues#topusers"
+  get "/topusers", to: "users#top"
 
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

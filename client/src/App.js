@@ -43,15 +43,19 @@ function App() {
 
   }, []);
 
-  console.log(user.venues)
+  //ßconsole.log(user.venues)
   //console.log(locations)
 
 
 
-
-
+// was adding it to the wrong state, thats why it wasnt showing up when you went home 
+// do the same when you edit and delete 
+// you first get an empty user object, then you want to 
 function handleAddVenue(newVenue){
-  setVenues([...user.venues, newVenue])
+  setUser({
+    ...user,
+    venues:[...user.venues, newVenue]
+  })
 
 }
 
@@ -69,13 +73,19 @@ function handleUpdateVenue(updatedVenue) {
       return venue
     }
   })
-  setVenues(updatedVenues)
+  setUser({
+    ...user,
+    venues: updatedVenues
+  })
 }
 
 function handleDeleteVenue(id){
   const updatedVenues = user.venues.filter((venue) => venue.id !==id);
   setVenues(updatedVenues)
 }
+//filter gives back an array 
+//you only want to delete the venue if the id matches 
+
 
   if (!user.id) return <Login onLogin={setUser}/>;
 
