@@ -1,4 +1,8 @@
 import React, { useState } from "react"
+import { useDispatch } from 'react-redux'
+import { addVenue } from './actions/venues'
+// you also need to import addVenue action which you did in the line above 
+
 
 
 const NewVenue = ({  onAddVenue, user, locations }) => {
@@ -7,32 +11,13 @@ const NewVenue = ({  onAddVenue, user, locations }) => {
     //const [location_id, setLocationId] = useState("")
     const [selectedLocation, setSelectedLocation]=  useState("")
     const [errors, setErrors]= useState([])
+    const dispatch = useDispatch();
+    
    
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch('/venues', {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-            },
-            
-            body: JSON.stringify({
-                name: name,
-                review: review,
-                location_id: selectedLocation,
-                // user: selectedLocation,
-            }),
-        })
-        
-        .then((r) =>  {
-            if (r.ok){ 
-                r.json().then((newVenue) => onAddVenue(newVenue))
-            } else {
-                r.json().then((err) => setErrors(err.errors))
-            }
-        }
-        )
+        dispatch(addVenue({name, review}))
     }
    
 

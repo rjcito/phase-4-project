@@ -4,6 +4,7 @@ class VenuesController < ApplicationController
     def index
         venues = current_user.venues
         render json: venues #calling the render method with the json option will produce a JSON-formatted string of data which the controller can then use as the body of the response being sent back to the client. If we pass an aActive Record Object (in this case, our venues variable) this render method, it will be serialized as JSON data based on the attributes of the object. 
+        
     end
 
     #POST /venues
@@ -40,22 +41,26 @@ class VenuesController < ApplicationController
     def destroy
         if logged_in?
             venue = Venue.find_by(id: params[:id])
-            if venue
+            if venue.user_id == current_user.id
                 venue.destroy
                 head :no_content
             else
                 render json: {error: "Venue not found"}, status: :not_found
             end
         else
-            render json: {error: ["You must be logged in."]}
+            render json: {error: "You must be logged in."}
         end
     end
 
-    def index
-        byebug
-        Venue.all.find_by(name: params[:searchterm])
-        #render json here, use where?
+    def search
+        #searched_venues = Venue.all.filter {|venue| venue.name.include?(params[:word])}
+        searched_venues = Venue.where("LOWER(name) LIKE ?", "%#{params[:word].downcase}%")
+        render json: searched_venues
+        
+
     end
+
+
 
 
 
@@ -64,6 +69,10 @@ class VenuesController < ApplicationController
     def venue_params
         params.require(:venue).permit(:name, :review, :location_id)
     end
+
+
+
+    
     
     def find_venue
         venue = Venue.find_by_id(params[:id])

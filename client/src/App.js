@@ -9,25 +9,22 @@ import VenueCard from "./VenueCard"
 // import LocationCard from "./LocationCard";
 import LocationForm from "./LocationForm";
 import LocationList from "./LocationList";
+import { useDispatch } from "react-redux";
+import { loadVenues } from "./actions/venues";
+
 
 
 function App() {
   const [user, setUser] = useState({venues:[]})
-  const [venues, setVenues] = useState()
+  //const [venues, setVenues] = useState()
   const [locations, setLocations] = useState([])
+  const dispatch = useDispatch()
+  
 
   
   useEffect(() => {
-
-    fetch("/me").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
-
-
-
-
+    dispatch(loadVenues())
+    
   }, []);
 
   useEffect(() => {
@@ -81,7 +78,10 @@ function handleUpdateVenue(updatedVenue) {
 
 function handleDeleteVenue(id){
   const updatedVenues = user.venues.filter((venue) => venue.id !==id);
-  setVenues(updatedVenues)
+  setUser({
+    ...user,
+    venues: updatedVenues
+  })
 }
 //filter gives back an array 
 //you only want to delete the venue if the id matches 
@@ -98,7 +98,7 @@ function handleDeleteVenue(id){
     
     
     <Router>
-      <NavBar user={user} setVenues={setVenues} setUser={setUser}/>
+      <NavBar user={user}  setUser={setUser}/>
       <div>
         <main>
           <Routes>

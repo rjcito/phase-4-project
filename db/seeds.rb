@@ -20,3 +20,6 @@ location2 =Location.create(city: "Chicago", state: "IL")
 venue1 = Venue.create(name: "Red Rocks Amphiteater", review: "This venue is the best outdoor venue in the world! ", user: user2, location: location1)
 venue2 = Venue.create(name: "Concord Music Hall", review: "Saw Azealia Banks there! It was hot too hot inside. ", user: user1, location: location2)
 venue3 = Venue.create(name: "The Mission Ballroom", review: "Couldn't have seen Lorde at a better venue. This place has a great set up. ", user: user2, location: location1)
+
+
+event1 = Event.create(event: "Shakira En Concierto", venue_id: 77)
